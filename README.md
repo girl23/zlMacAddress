@@ -1,6 +1,6 @@
 # zlmacaddress
 
-A new Flutter plugin.
+A new Flutter plugin. only for ios  when you use please Import libresolv.9.tbd in you ios 
 
 ## Getting Started
 
