@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:zlmacaddress/zlmacaddress.dart';
+import 'testPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,6 +13,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Plugin example app'),
+        ),
+        body:HomePage(),
+
+      ),
+    );
+  }
+}
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   String _platformVersion = 'Unknown';
 
   @override
@@ -39,18 +60,23 @@ class _MyAppState extends State<MyApp> {
       _platformVersion = platformVersion;
     });
   }
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+    return  Center(
+      child:Column(
+        children: <Widget>[
+          Text('Running on: $_platformVersion\n'),
+          FlatButton(
+            child: Text('Tap'),
+            onPressed:(){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => MenusDemo()));
+
+            } ,
+
+          )
+        ],
       ),
+//          Text('Running on: $_platformVersion\n'),
     );
   }
 }
