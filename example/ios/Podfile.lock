@@ -1,11 +1,31 @@
 PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
   - Flutter (1.0.0)
   - zlmacaddress (0.0.1):
+    - AFNetworking
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - zlmacaddress (from `.symlinks/plugins/zlmacaddress/ios`)
+
+SPEC REPOS:
+  trunk:
+    - AFNetworking
 
 EXTERNAL SOURCES:
   Flutter:
@@ -14,8 +34,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/zlmacaddress/ios"
 
 SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  zlmacaddress: e9aaa6a766c5ecddbd4ea89d63254b79cee4abe9
+  zlmacaddress: 42002df95de35ec3676cb25706801d67fc1d5250
 
 PODFILE CHECKSUM: 3dbe063e9c90a5d7c9e4e76e70a821b9e2c1d271
 

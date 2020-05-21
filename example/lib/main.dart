@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:zlmacaddress/zlmacaddress.dart';
 import 'testPage.dart';
+import 'testPage2.dart';
 
 void main() => runApp(MyApp());
 
@@ -47,6 +48,15 @@ class _HomePageState extends State<HomePage> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       platformVersion = await Zlmacaddress.platformVersion;
+//      Zlmacaddress s= new  Zlmacaddress();
+//      s.sendMessage({"method":"test","ontent":"flutter 中的数据","code":100});
+//      s.receiveMessage();
+//    await Zlmacaddress.sendMessage({"method":"test2","ontent":"flutter 中的数据","code":100}).then((val){
+//      int code = val["code"];
+//      String message=val["message"];
+//      print('#####${message}');
+//    });
+//    Zlmacaddress.receiveMessage();
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -62,7 +72,8 @@ class _HomePageState extends State<HomePage> {
   }
   @override
   Widget build(BuildContext context) {
-    return  Center(
+    return
+      Center(
       child:Column(
         children: <Widget>[
           Text('Running on: $_platformVersion\n'),
@@ -70,6 +81,7 @@ class _HomePageState extends State<HomePage> {
             child: Text('Tap'),
             onPressed:(){
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => MenusDemo()));
+//              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>BasicMessageChannelPage('jjj') ));
 
             } ,
 

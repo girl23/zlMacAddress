@@ -1,5 +1,6 @@
 ///系统菜单
 import 'package:flutter/material.dart';
+import 'testPage2.dart';
 class MenusDemo extends StatefulWidget{
   @override
   _MenusDemoState createState() => new _MenusDemoState();
@@ -17,14 +18,15 @@ class _MenusDemoState extends State<MenusDemo>{
               color:Colors.transparent,
               elevation:0.0,
               onSelected: (String value){
-                setState(() {
-                  _bodyStr = value;
-                });
+//                setState(() {
+//                  _bodyStr = value;
+//                });
               },
               itemBuilder: (BuildContext context) =><PopupMenuItem<String>>[
                 new PopupMenuItem(
                     value:"选项一的内容",
                     child: new Text("选项一")
+                    
                 ),
                 new PopupMenuItem(
                     value: "选项二的内容",

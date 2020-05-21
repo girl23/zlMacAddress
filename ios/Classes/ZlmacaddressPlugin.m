@@ -7,7 +7,7 @@
 #import <netinet/ip.h>
 #import <net/ethernet.h>
 #import <net/if_dl.h>
-
+#import <AFNetworking/AFNetworking.h>
 #define MDNS_PORT       5353
 #define QUERY_NAME      "_apple-mobdev2._tcp.local"
 #define DUMMY_MAC_ADDR  @"02:00:00:00:00:00"
@@ -16,8 +16,13 @@
 #define IOS_VPN         @"utun0"
 #define IP_ADDR_IPv4    @"ipv4"
 #define IP_ADDR_IPv6    @"ipv6"
+
+
+@interface ZlmacaddressPlugin()
+//@property(nonatomic,assign)BOOL isWifi;
+@end
 @implementation ZlmacaddressPlugin
-+ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
++(void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
       methodChannelWithName:@"zlmacaddress"
             binaryMessenger:[registrar messenger]];
@@ -28,15 +33,71 @@
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"getPlatformVersion" isEqualToString:call.method]) {
 //    result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
-      result([@"iOS " stringByAppendingString:[NSString stringWithString:[self getMacAddress]]]);
+      result([@"iOS " stringByAppendingString:[NSString stringWithFormat:@"%@", [self getMacAddress]]]);
+    
   } else {
     result(FlutterMethodNotImplemented);
   }
+}
+
+#pragma mark - 获取当前网络状态
+
+/**
+
+*  获取当前网络状态
+
+*
+
+*  0:无网络 & 1:2G & 2:3G & 3:4G & 5:WIFI
+
+*/
+
+- (BOOL)isConnectWifi{
+    // 创建网络监听管理者
+    __block BOOL isWifi  = false;
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+
+    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+                NSLog(@"未知");
+                isWifi=false;
+                
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+                NSLog(@"暂无网络");
+                isWifi=false;
+                
+                break;
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                NSLog(@"4G");
+                isWifi=false;
+                
+                break;
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+                NSLog(@"==WIFI");
+                 isWifi=true;
+                
+                break;
+                
+            default:
+                isWifi=false;
+                break;
+        }
+    }];
+    
+//    // 开启监测
+//    [manager startMonitoring];
+    NSLog(@"%hhd",isWifi);
+    return isWifi;
 }
 /*
  * 获取设备物理地址
  */
 - (nullable NSString *)getMacAddress {
+    if (![self isConnectWifi]) {
+        return DUMMY_MAC_ADDR;
+    }
     res_9_init();
     int len;
     //get currnet ip address
@@ -138,4 +199,5 @@
     return inet_pton(AF_INET, [IPAddr UTF8String], &network) == 1 ?
     network : INADDR_NONE;
 }
+
 @end
